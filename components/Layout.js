@@ -9,8 +9,8 @@ export default function Layout(props) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <main css={mainStyles}>{props.children}</main>
+      <Header darkModeOn={props.darkModeOn} />
+      <main css={mainStyles(props.darkModeOn)}>{props.children}</main>
       <Footer />
     </>
   );
