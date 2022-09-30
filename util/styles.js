@@ -6,6 +6,7 @@ export const headerStyles = (darkModeOn) => css`
   display: flex;
   justify-content: space-between;
   position: fixed;
+  z-index: 100;
   padding: 15px;
   color: white;
 
@@ -51,6 +52,9 @@ export const headerStyles = (darkModeOn) => css`
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
+    position: relative;
+    z-index: 100;
+    align-items: center;
     background-color: #0b8ab3;
     border-radius: 8px;
     padding: 5px 15px 5px 15px;
@@ -61,6 +65,11 @@ export const headerStyles = (darkModeOn) => css`
     font-weight: medium;
     font-size: 17px;
     color: white;
+    transition: 300ms color ease;
+
+    &:hover {
+      color: black;
+    }
   }
 `;
 
@@ -96,6 +105,13 @@ export const mainStyles = (darkModeOn) => css`
     }
   }
 
+  .home-hero-section {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .product-showroom-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -106,6 +122,20 @@ export const mainStyles = (darkModeOn) => css`
 
       & .showroom-image {
         border-radius: 8px;
+      }
+    }
+    & .showroom-image-wrap {
+      position: relative;
+
+      & a {
+        text-decoration: none;
+        font-size: 50px;
+        font-weight: bold;
+        color: #0b8ab3;
+        ${!darkModeOn &&
+        css`
+          color: white;
+        `}
       }
     }
   }

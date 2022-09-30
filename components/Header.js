@@ -1,3 +1,4 @@
+import 'animate.css';
 import { css } from '@emotion/react';
 // import Image from 'next/image';
 import Link from 'next/link';
@@ -7,14 +8,14 @@ export default function Header(props) {
   return (
     <header css={headerStyles(props.darkModeOn)}>
       <div id="header-logo-wrap">
-        <Link href="/index.js">
+        <Link href="/">
           <img
             src="/logo.png"
             alt="vegan hats for cats minimal logo"
             className="light-mode"
           />
         </Link>
-        <Link href="/index.js">
+        <Link href="/">
           <img
             src="/logo-darkmode.png"
             alt="vegan hats for cats minimal logo"
@@ -23,11 +24,17 @@ export default function Header(props) {
         </Link>
       </div>
       <div id="header-nav-wrap">
-        <Link href="" className="nav-link">
+        <Link href="/" className="nav-link">
           <a>home</a>
         </Link>
-        <Link href="" className="nav-link">
-          <a>hats</a>
+        <Link href="/products" className="nav-link">
+          <a>shop</a>
+        </Link>
+        <Link href="/">
+          <a>
+            <img src="/cart.png" alt="shopping cart" className="nav-icon" />
+            {'(6) '}
+          </a>
         </Link>
         <a>
           <img
@@ -36,6 +43,7 @@ export default function Header(props) {
             className="nav-icon"
           />
         </a>
+
         <a>
           <img src="/sun.png" alt="sun for day mode on" className="nav-icon" />
         </a>

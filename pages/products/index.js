@@ -1,3 +1,4 @@
+import 'animate.css';
 // import { css } from '@emotion/react';
 // import Head from 'next/head';
 import Image from 'next/image';
@@ -15,22 +16,29 @@ export default function Products(props) {
     <div style={mainStyles(props.darkModeOn)}>
       <section className="main-section">
         <container>
-          <h1>
+          <h1 className="animate__animated animated__fadeIn">
             all the <br />
             <span>hats</span>
           </h1>
           <div className="product-showroom-wrap">
             {props.products.map((product) => {
               return (
-                <div key={`Product: ${product.name}`} className="showroom-item">
-                  <Image
-                    className="showroom-image"
-                    src={`/${product.id}-${product.name}.jpg`}
-                    alt={`product with name: ${product.name}`}
-                    width="300"
-                    height="300"
-                  />
-                  <Link href={`/products/${product.id}`}>{product.name}</Link>
+                <div
+                  key={`Product: ${product.name}`}
+                  className="showroom-item animate__animated animated__fadeIn"
+                >
+                  <div className="showroom-image-wrap">
+                    <Image
+                      className="showroom-image"
+                      src={`/${product.id}-${product.name}.jpg`}
+                      alt={`product with name: ${product.name}`}
+                      width="300"
+                      height="300"
+                    />
+                    <Link href={`/products/${product.id}`}>
+                      <a>{product.name}</a>
+                    </Link>
+                  </div>
                 </div>
               );
             })}
