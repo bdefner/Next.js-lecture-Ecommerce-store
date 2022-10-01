@@ -1,5 +1,9 @@
 import { css } from '@emotion/react';
 
+const colors = {
+  blue: '0b8ab3',
+};
+
 export const headerStyles = (darkModeOn) => css`
   width: 100vw;
   min-height: 50px;
@@ -93,6 +97,21 @@ export const mainStyles = (darkModeOn) => css`
     }
   }
 
+  .main-button {
+    padding: 8px 15px 8px 15px;
+    background-color: #0b8ab3;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 300ms background-color ease;
+
+    &:hover {
+      background-color: #333;
+    }
+  }
+
   h1 {
     text-align: center;
     font-size: 100px;
@@ -137,6 +156,20 @@ export const mainStyles = (darkModeOn) => css`
           color: white;
         `}
       }
+    }
+  }
+
+  .error-page-wrap {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & #error-message-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 `;

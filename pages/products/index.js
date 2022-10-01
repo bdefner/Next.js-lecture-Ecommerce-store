@@ -4,13 +4,12 @@ import 'animate.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { products } from '../../database/products';
+import { productsDatabase } from '../../database/products';
 import { mainStyles } from '../../util/styles';
 
-console.log(products);
+console.log(productsDatabase);
 
 export default function Products(props) {
-  // console.log(props);
   // console.log(props.darkModeOn);
   return (
     <div style={mainStyles(props.darkModeOn)}>
@@ -52,7 +51,7 @@ export default function Products(props) {
 export function getServerSideProps() {
   return {
     props: {
-      products: products,
+      products: productsDatabase,
     },
   };
 }
