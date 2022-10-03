@@ -13,29 +13,38 @@ export default function Product(props) {
 
   useEffect(() => {
     const AmountInCookie = getParsedCookies('cart');
-    const foundAmount = AmountInCookie.find(
-      (productObject) => productObject.id === props.product.id,
-    );
-    if (foundAmount) {
-      setAmount(foundAmount.amount);
-    }
-  }, []);
+    console.log('AmountInCookie', AmountInCookie);
 
-  if (props.error) {
-    return (
-      <div className="error-page-wrap">
-        <div id="error-message-wrap">
-          <LottieErrorAnimation />
-          <h1>Page not found...</h1>
-          <div>
-            <Link href="/products">
-              <a className="main-button">See our products</a>
-            </Link>
+    // 404 check
+
+    if (props.error) {
+      return (
+        <div className="error-page-wrap">
+          <div id="error-message-wrap">
+            <LottieErrorAnimation />
+            <h1>Page not found...</h1>
+            <div>
+              <Link href="/products">
+                <a className="main-button">See our products</a>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
+
+    // Check cookie for amount of product in cart and set amount to this value
+
+    if (AmountInCookie) {
+      const foundAmount = AmountInCookie.find(
+        (productObject) => productObject.id === props.product.id,
+      );
+
+      if (foundAmount) {
+        setAmount(foundAmount.amount);
+      }
+    }
+  }, []);
 
   return (
     <div>
@@ -84,7 +93,6 @@ export default function Product(props) {
                 <button
                   onClick={() => {
                     const currentCookieValue = getParsedCookies('cart');
-                    console.log('currentCookieValue', currentCookieValue);
 
                     if (!currentCookieValue) {
                       setStringifiedCookie('cart', [
