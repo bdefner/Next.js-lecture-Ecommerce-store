@@ -30,7 +30,7 @@ export default function Header(props) {
         <Link href="/products" className="nav-link">
           <a>shop</a>
         </Link>
-        <Link href="/">
+        <Link href="/cart">
           <a>
             <img src="/cart.png" alt="shopping cart" className="nav-icon" />
             {'(6) '}

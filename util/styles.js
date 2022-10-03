@@ -124,6 +124,11 @@ export const mainStyles = (darkModeOn) => css`
     }
   }
 
+  h2 {
+    font-size: 50px;
+    font-weight: 900;
+  }
+
   .home-hero-section {
     min-height: 100vh;
     width: 100vw;
@@ -171,5 +176,39 @@ export const mainStyles = (darkModeOn) => css`
       flex-direction: column;
       align-items: center;
     }
+  }
+
+  .product-info-container {
+    position: relative;
+    display: flex;
+    flex-direction: flex-start;
+    width: 60%;
+    & img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    & #add-to-cart-wrap {
+      display: flex;
+      justify-content: flex-start;
+
+      & div {
+        display: flex;
+        align-items: center;
+      }
+
+      & button {
+        margin-right: 5px;
+      }
+
+      & p {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .info-text-column {
+    margin-left: 50px;
+    width: 50%;
   }
 `;
