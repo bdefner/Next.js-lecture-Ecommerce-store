@@ -114,7 +114,7 @@ export const mainStyles = (darkModeOn) => css`
 
   h1 {
     text-align: center;
-    font-size: 100px;
+    font-size: 80px;
     font-weight: lighter;
 
     & span {
@@ -135,6 +135,12 @@ export const mainStyles = (darkModeOn) => css`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ${!darkModeOn &&
+    css`
+      background-color: #1d1d1d;
+      color: white;
+    `}
   }
   .product-showroom-wrap {
     display: flex;
@@ -210,5 +216,21 @@ export const mainStyles = (darkModeOn) => css`
   .info-text-column {
     margin-left: 50px;
     width: 50%;
+  }
+
+  #relative-push-to-left {
+    position: relative;
+    left: -5%;
+    padding-top: 150px;
+
+    & > button {
+      transform: rotate(-0.015turn);
+      font-size: 20px;
+      transition: 300ms ease all;
+      &:hover {
+        transform: scale(1.1);
+        transform: rotate(0.015turn);
+      }
+    }
   }
 `;

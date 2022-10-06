@@ -75,7 +75,7 @@ export default function Product(props) {
               location.
             </p>
             <span id="product-price" data-test-id="product-price">
-              9,99
+              {props.product.price}
             </span>
             <div id="add-to-cart-wrap">
               <div>
@@ -96,7 +96,12 @@ export default function Product(props) {
 
                     if (!currentCookieValue) {
                       setStringifiedCookie('cart', [
-                        { id: props.product.id, amount: amount },
+                        {
+                          id: props.product.id,
+                          name: props.product.name,
+                          amount: amount,
+                          singlePrice: props.product.price,
+                        },
                       ]);
                     } else {
                       const foundAmountInCookie = currentCookieValue.find(
@@ -107,7 +112,9 @@ export default function Product(props) {
                       if (!foundAmountInCookie) {
                         currentCookieValue.push({
                           id: props.product.id,
+                          name: props.product.name,
                           amount: amount,
+                          singlePrice: props.product.price,
                         });
                         setStringifiedCookie('cart', currentCookieValue);
                       }
@@ -148,3 +155,25 @@ export function getServerSideProps(context) {
     },
   };
 }
+
+// export async function getServerSideProps(context) {
+//   // Retrieve the product id from the URL
+//   const productID = parseInt(context.query.productID);
+
+//   const foundProduct = await getProductById(productID);
+
+//   if (typeof foundProduct === 'undefined') {
+//     context.res.statusCode = 404;
+//     return {
+//       props: {
+//         error: 'Product not found',
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {
+//       product: foundProduct,
+//     },
+//   };
+// }

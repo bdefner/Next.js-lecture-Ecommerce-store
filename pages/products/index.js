@@ -7,10 +7,7 @@ import { useState } from 'react';
 import { productsDatabase } from '../../database/products';
 import { mainStyles } from '../../util/styles';
 
-console.log(productsDatabase);
-
 export default function Products(props) {
-  // console.log(props.darkModeOn);
   return (
     <div style={mainStyles(props.darkModeOn)}>
       <section className="main-section">
@@ -48,7 +45,8 @@ export default function Products(props) {
   );
 }
 
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  // const products = await getProducts();
   return {
     props: {
       products: productsDatabase,
