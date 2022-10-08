@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 
-const colors = {
-  blue: '0b8ab3',
+const theme = (fontSize) => {
+  blue: '0b8ab3';
 };
 
-export const headerStyles = (darkModeOn) => css`
+export const headerStyles = (darkModeOn, fontSize) => css`
   width: 100vw;
   min-height: 50px;
   display: flex;
@@ -13,6 +13,7 @@ export const headerStyles = (darkModeOn) => css`
   z-index: 100;
   padding: 15px;
   color: white;
+  font-size: ${fontSize}px;
 
   .dark-mode {
     ${darkModeOn &&
@@ -77,13 +78,14 @@ export const headerStyles = (darkModeOn) => css`
   }
 `;
 
-export const mainStyles = (darkModeOn) => css`
+export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
   .main-section {
     width: 100vw;
     padding-top: 100px;
     padding-bottom: 100px;
     display: flex;
     justify-content: center;
+    font-size: ${fontSize}px;
 
     ${!darkModeOn &&
     css`
@@ -129,6 +131,11 @@ export const mainStyles = (darkModeOn) => css`
     font-weight: 900;
   }
 
+  .flex-row-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .home-hero-section {
     min-height: 100vh;
     width: 100vw;
@@ -232,5 +239,50 @@ export const mainStyles = (darkModeOn) => css`
         transform: rotate(0.015turn);
       }
     }
+  }
+  #cart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    & h3 {
+      margin-right: 15px;
+      font-size: 25px;
+      width: 120px;
+    }
+
+    & div {
+      margin-right: 10px;
+      padding: 0px 15px 0px 15px;
+    }
+
+    & p {
+      margin: 0px 5px 0px 5px;
+    }
+
+    & span {
+      font-weight: bold;
+    }
+  }
+
+  #total-wrap {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+export const footerStyles = (darkModeOn) => css`
+  .footer {
+    background-color: red;
   }
 `;

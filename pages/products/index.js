@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { productsDatabase } from '../../database/products';
 import { mainStyles } from '../../util/styles';
 
-export default function Products(props) {
+export default function DisplayProducts(props) {
   return (
     <div style={mainStyles(props.darkModeOn)}>
       <section className="main-section">

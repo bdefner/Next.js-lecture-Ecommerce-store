@@ -2,6 +2,8 @@ import 'animate.css';
 import { css } from '@emotion/react';
 // import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { getParsedCookies } from '../util/cookies';
 import { headerStyles } from '../util/styles';
 
 export default function Header(props) {
@@ -33,10 +35,14 @@ export default function Header(props) {
         <Link href="/cart">
           <a>
             <img src="/cart.png" alt="shopping cart" className="nav-icon" />
-            {'(6) '}
+            {props.totalItems}
           </a>
         </Link>
-        <a>
+        <a
+          onClick={() => {
+            props.setDarkModeOn(false);
+          }}
+        >
           <img
             src="/moon.png"
             alt="moon for dark mode on"
@@ -44,7 +50,11 @@ export default function Header(props) {
           />
         </a>
 
-        <a>
+        <a
+          onClick={() => {
+            props.setDarkModeOn(true);
+          }}
+        >
           <img src="/sun.png" alt="sun for day mode on" className="nav-icon" />
         </a>
       </div>

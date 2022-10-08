@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
 import Lottie, { useLottie } from 'lottie-react';
+import { redirect } from 'next/dist/server/api-utils';
 import React from 'react';
 import animation from '../public/cat.json';
 import LottieAnimation from '../public/LottieAnimation';
+import { footerStyles } from '../util/styles';
 
 function CatAnimation() {
   const options = {
@@ -14,21 +16,12 @@ function CatAnimation() {
 
   const { View } = useLottie(options);
 
-  return (
-    <div>
-      {View}{' '}
-      <button onClick={() => this.setState({ isStopped: true })}>stop</button>
-      <button onClick={() => this.setState({ isStopped: false })}>play</button>
-      <button onClick={() => this.setState({ isPaused: !this.state.isPaused })}>
-        pause
-      </button>
-    </div>
-  );
+  return <div>{View} </div>;
 }
 
-export default function Footer() {
+export default function Footer(props) {
   return (
-    <footer>
+    <footer css={footerStyles} className="footer">
       <LottieAnimation />
     </footer>
   );

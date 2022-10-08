@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import LottieErrorAnimation from '../../components/LottieErrorAnimation';
 import { productsDatabase } from '../../database/products';
 import { getParsedCookies, setStringifiedCookie } from '../../util/cookies';
@@ -11,27 +11,27 @@ import { mainStyles } from '../../util/styles';
 export default function Product(props) {
   const [amount, setAmount] = useState(1);
 
+  // 404 check
+
+  if (props.error) {
+    return (
+      <div className="error-page-wrap">
+        <div id="error-message-wrap">
+          <LottieErrorAnimation />
+          <h1>Page not found...</h1>
+          <div>
+            <Link href="/products">
+              <a className="main-button">See our products</a>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   useEffect(() => {
     const AmountInCookie = getParsedCookies('cart');
     console.log('AmountInCookie', AmountInCookie);
-
-    // 404 check
-
-    if (props.error) {
-      return (
-        <div className="error-page-wrap">
-          <div id="error-message-wrap">
-            <LottieErrorAnimation />
-            <h1>Page not found...</h1>
-            <div>
-              <Link href="/products">
-                <a className="main-button">See our products</a>
-              </Link>
-            </div>
-          </div>
-        </div>
-      );
-    }
 
     // Check cookie for amount of product in cart and set amount to this value
 
@@ -75,7 +75,7 @@ export default function Product(props) {
               location.
             </p>
             <span id="product-price" data-test-id="product-price">
-              {props.product.price}
+              € {props.product.price}
             </span>
             <div id="add-to-cart-wrap">
               <div>
@@ -92,8 +92,8 @@ export default function Product(props) {
               <div>
                 <button
                   onClick={() => {
+                    props.setTotalItems(props.totalItems + amount);
                     const currentCookieValue = getParsedCookies('cart');
-
                     if (!currentCookieValue) {
                       setStringifiedCookie('cart', [
                         {

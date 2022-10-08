@@ -14,10 +14,10 @@ CREATE TABLE products(
 INSERT INTO products
   (name, price)
 VALUES
-  ('cosy', 9.99)
-  ('classy', 99.9)
-  ('cool', 999)
-  ('sunny', 9990)
+  ('cosy', 9.99),
+  ('classy', 99.9),
+  ('cool', 999),
+  ('sunny', 9990);
 
 -- Read some animals (R in CRUD - Read)
 SELECT * FROM products;
