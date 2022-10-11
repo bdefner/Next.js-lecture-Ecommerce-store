@@ -290,6 +290,78 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     justify-content: space-between;
     align-items: center;
   }
+
+  #checkout-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+
+    & .column {
+      width: 50%;
+    }
+
+    & form {
+      max-width: 300px;
+      & .row-of-inputs {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        &:first-child {
+          margin-right: 15px;
+        }
+      }
+
+      & div {
+        margin-top: 15px;
+      }
+
+      & .group-of-inputs {
+        margin: 50px 0 50px 0;
+      }
+
+      & input {
+        margin: 5px 15px 0 0;
+        padding: 5px;
+        border-width: 1px;
+        border-color: #cccccc;
+        background-color: #ffffff;
+        color: #000000;
+        border-style: solid;
+        border-radius: 8px;
+        box-shadow: 0px 0px 5px rgba(149, 149, 149, 0.22);
+        width: 100%;
+      }
+
+      & .main-button {
+        padding: 8px 15px 8px 15px;
+        background-color: #0b8ab3;
+        color: white;
+        border: 0px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 300ms background-color ease;
+
+        &:hover {
+          background-color: #333;
+        }
+      }
+
+      & #postal {
+        max-width: 80px;
+      }
+
+      & label {
+        font-size: 15px;
+        font-weight: 400;
+      }
+      & > div {
+        margin-top: 15px;
+      }
+    }
+  }
 `;
 
 export const footerStyles = (darkModeOn) => css`

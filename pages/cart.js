@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../database/products';
 import { getParsedCookies, setStringifiedCookie } from '../util/cookies';
@@ -40,7 +41,10 @@ export default function Cart(props) {
             })}
             <div id="total-wrap">
               <span>Total: € </span>
-              <button className="main-button">Checkout</button>
+
+              <Link href="/checkout">
+                <button className="main-button">checkout</button>
+              </Link>
             </div>
           </div>
         </container>

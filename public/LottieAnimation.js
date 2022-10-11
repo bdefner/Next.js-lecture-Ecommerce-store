@@ -11,7 +11,7 @@ export default class LottieControl extends React.Component {
   render() {
     const defaultOptions = {
       loop: false,
-      autoplay: false,
+      autoplay: true,
       animationData: animationData,
       rendererSettings: {
         preserveAspectRatio: 'xMidYMid slice',
@@ -22,7 +22,7 @@ export default class LottieControl extends React.Component {
       <div>
         <Lottie
           height={'100%'}
-          width={'100%'}
+          width="{'100%'}"
           isStopped={this.state.isStopped}
           isPaused={this.state.isPaused}
           onClick={() => this.setState({ isStopped: false })}
