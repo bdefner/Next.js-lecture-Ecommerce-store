@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }) {
   const [mode, setMode] = useState(true);
   const [totalItems, setTotalItems] = useState(0);
   const [fontSize, setFontSize] = useState(15);
+  const [settingsVisible, setSettingsVisible] = useState(true);
 
   useEffect(() => {
     const productsInCart = getParsedCookies('cart');
@@ -40,24 +41,24 @@ function MyApp({ Component, pageProps }) {
       });
   }, []);
   return (
-    <>
-      <Layout
-        fontSize={fontSize}
-        setFontSize={setFontSize}
+    <Layout
+      fontSize={fontSize}
+      setFontSize={setFontSize}
+      darkModeOn={mode}
+      setDarkModeOn={setMode}
+      totalItems={totalItems}
+      settingsVisible={settingsVisible}
+      setSettingsVisible={setSettingsVisible}
+    >
+      <Global styles={globalStyles} />
+      <Component
+        {...pageProps}
+        totalItems={totalItems}
+        setTotalItems={setTotalItems}
         darkModeOn={mode}
         setDarkModeOn={setMode}
-        totalItems={totalItems}
-      >
-        <Global styles={globalStyles} />
-        <Component
-          {...pageProps}
-          totalItems={totalItems}
-          setTotalItems={setTotalItems}
-          darkModeOn={mode}
-          setDarkModeOn={setMode}
-        />
-      </Layout>
-    </>
+      />
+    </Layout>
   );
 }
 

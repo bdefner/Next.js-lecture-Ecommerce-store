@@ -1,11 +1,11 @@
 import { sql } from './connect';
 
-export const productsDatabase = [
-  { id: '1', name: 'cosy', price: 9.99 },
-  { id: '2', name: 'classy', price: 99.9 },
-  { id: '3', name: 'cool', price: 999.0 },
-  { id: '4', name: 'sunny', price: 9990.0 },
-];
+// export const productsDatabase = [
+//   { id: '1', name: 'cosy', price: 9.99 },
+//   { id: '2', name: 'classy', price: 99.9 },
+//   { id: '3', name: 'cool', price: 999.0 },
+//   { id: '4', name: 'sunny', price: 9990.0 },
+// ];
 
 export type Product = {
   id: number;
@@ -33,7 +33,7 @@ export async function getProductById(id: number) {
 
 export async function createProduct(name: string, price: number) {
   const [product] = await sql<Product[]>`
-  INSERT INTO productsDatabase(name, price)
+  INSERT INTO products(name, price)
   VALUES (${name}, ${price})
   RETURNING *
   `;

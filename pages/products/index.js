@@ -4,7 +4,7 @@ import 'animate.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { productsDatabase } from '../../database/products';
+import { getProducts } from '../../database/products';
 import { mainStyles } from '../../util/styles';
 
 export default function DisplayProducts(props) {
@@ -46,10 +46,10 @@ export default function DisplayProducts(props) {
 }
 
 export async function getServerSideProps() {
-  // const products = await getProducts();
+  const products = await getProducts();
   return {
     props: {
-      products: productsDatabase,
+      products: products,
     },
   };
 }

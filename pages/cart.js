@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { productsDatabase } from '../database/products';
+import { getProducts } from '../database/products';
 import { getParsedCookies, setStringifiedCookie } from '../util/cookies';
 import { mainStyles } from '../util/styles';
 
@@ -21,12 +21,8 @@ export default function Cart(props) {
           <div>
             {productsInCart.map((product) => {
               return (
-                <div>
-                  <div
-                    key={product.id}
-                    id="cart-item"
-                    data-test-id="cart-product-<product id>"
-                  >
+                <div key={product.name}>
+                  <div id="cart-item" data-test-id="cart-product-<product id>">
                     <h3>{product.name}</h3>
 
                     <div className="flex-row-center">
@@ -58,10 +54,10 @@ export default function Cart(props) {
 // }
 
 export async function getServerSideProps() {
-  // const products = await getProducts();
+  const products = await getProducts();
   return {
     props: {
-      products: productsDatabase,
+      products: products,
     },
   };
 }

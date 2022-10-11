@@ -9,7 +9,12 @@ export default function Layout(props) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header darkMode={props.darkModeOn} setDarkModeOn={props.setDarkModeOn} />
+      <Header
+        darkModeOn={props.darkModeOn}
+        setDarkModeOn={props.setDarkModeOn}
+        settingsVisible={props.settingsVisible}
+        setSettingsVisible={props.setSettingsVisible}
+      />
       <main css={mainStyles(props.darkModeOn, props.fontSize)}>
         {props.children}
       </main>

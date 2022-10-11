@@ -2,9 +2,9 @@ import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import LottieErrorAnimation from '../../components/LottieErrorAnimation';
-import { productsDatabase } from '../../database/products';
+import { getProductById } from '../../database/products';
 import { getParsedCookies, setStringifiedCookie } from '../../util/cookies';
 import { mainStyles } from '../../util/styles';
 
@@ -132,37 +132,15 @@ export default function Product(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  const productId = context.params.productId;
-  const products = productsDatabase;
+// export function getServerSideProps(context) {
+//   const productId = context.params.productId;
+//   const products = productsDatabase;
 
-  const currentProduct = products.find((product) => {
-    return product.id === productId;
-  });
+//   const currentProduct = products.find((product) => {
+//     return product.id === productId;
+//   });
 
-  if (typeof currentProduct === 'undefined') {
-    context.res.statusCode = 404;
-    return {
-      props: {
-        error: 'Product not found',
-      },
-    };
-  }
-
-  return {
-    props: {
-      product: currentProduct,
-    },
-  };
-}
-
-// export async function getServerSideProps(context) {
-//   // Retrieve the product id from the URL
-//   const productID = parseInt(context.query.productID);
-
-//   const foundProduct = await getProductById(productID);
-
-//   if (typeof foundProduct === 'undefined') {
+//   if (typeof currentProduct === 'undefined') {
 //     context.res.statusCode = 404;
 //     return {
 //       props: {
@@ -173,7 +151,28 @@ export function getServerSideProps(context) {
 
 //   return {
 //     props: {
-//       product: foundProduct,
+//       product: currentProduct,
 //     },
 //   };
 // }
+
+export async function getServerSideProps(context) {
+  // Retrieve the product id from the URL
+  const productId = parseInt(context.query.productId);
+  const foundProduct = await getProductById(productId);
+
+  if (typeof foundProduct === 'undefined') {
+    context.res.statusCode = 404;
+    return {
+      props: {
+        error: 'Product not found',
+      },
+    };
+  }
+
+  return {
+    props: {
+      product: foundProduct,
+    },
+  };
+}

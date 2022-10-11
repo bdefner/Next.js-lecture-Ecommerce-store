@@ -4,7 +4,7 @@ const theme = (fontSize) => {
   blue: '0b8ab3';
 };
 
-export const headerStyles = (darkModeOn, fontSize) => css`
+export const headerStyles = (darkModeOn, fontSize, settingsVisible) => css`
   width: 100vw;
   min-height: 50px;
   display: flex;
@@ -14,6 +14,17 @@ export const headerStyles = (darkModeOn, fontSize) => css`
   padding: 15px;
   color: white;
   font-size: ${fontSize}px;
+
+  #settings-wrap {
+    ${settingsVisible &&
+    css`
+      display: none;
+    `}
+    ${!settingsVisible &&
+    css`
+      display: block;
+    `}
+  }
 
   .dark-mode {
     ${darkModeOn &&

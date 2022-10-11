@@ -8,7 +8,7 @@ import { headerStyles } from '../util/styles';
 
 export default function Header(props) {
   return (
-    <header css={headerStyles(props.darkModeOn)}>
+    <header css={headerStyles(props.darkModeOn, props.settingsVisible)}>
       <div id="header-logo-wrap">
         <Link href="/">
           <img
@@ -40,23 +40,40 @@ export default function Header(props) {
         </Link>
         <a
           onClick={() => {
-            props.setDarkModeOn(false);
+            props.setSettingsVisible(true);
           }}
         >
           <img
-            src="/moon.png"
+            src="/settings.png"
             alt="moon for dark mode on"
             className="nav-icon"
           />
         </a>
+        <div id="settings-wrap">
+          <a
+            onClick={() => {
+              props.setDarkModeOn(false);
+            }}
+          >
+            <img
+              src="/moon.png"
+              alt="moon for dark mode on"
+              className="nav-icon"
+            />
+          </a>
 
-        <a
-          onClick={() => {
-            props.setDarkModeOn(true);
-          }}
-        >
-          <img src="/sun.png" alt="sun for day mode on" className="nav-icon" />
-        </a>
+          <a
+            onClick={() => {
+              props.setDarkModeOn(true);
+            }}
+          >
+            <img
+              src="/sun.png"
+              alt="sun for day mode on"
+              className="nav-icon"
+            />
+          </a>
+        </div>
       </div>
     </header>
   );
