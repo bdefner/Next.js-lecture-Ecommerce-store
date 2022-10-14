@@ -7,9 +7,5 @@ import LottieAnimation from '../public/LottieAnimation';
 import { footerStyles } from '../util/styles';
 
 export default function Footer(props) {
-  return (
-    <footer css={footerStyles} className="footer">
-      Footer
-    </footer>
-  );
+  return <footer css={footerStyles} className="footer"></footer>;
 }

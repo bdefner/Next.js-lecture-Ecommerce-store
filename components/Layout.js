@@ -18,30 +18,6 @@ export default function Layout(props) {
       <main css={mainStyles(props.darkModeOn, props.fontSize)}>
         {props.children}
       </main>
-
-      <button
-        onClick={() => {
-          props.setFontSize(props.fontSize + 1);
-        }}
-      >
-        {' '}
-        font +
-      </button>
-      <button
-        onClick={() => {
-          props.setFontSize(props.fontSize - 1);
-        }}
-      >
-        {' '}
-        font -
-      </button>
-      <button
-        onClick={() => {
-          props.setDarkModeOn(false);
-        }}
-      >
-        dark
-      </button>
       <Footer css={mainStyles(props.darkModeOn, props.fontSize)} />
     </>
   );

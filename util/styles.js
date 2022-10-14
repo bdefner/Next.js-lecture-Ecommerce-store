@@ -4,7 +4,7 @@ const theme = (fontSize) => {
   blue: '0b8ab3';
 };
 
-export const headerStyles = (darkModeOn, fontSize, settingsVisible) => css`
+export const headerStyles = (darkModeOn, fontSize) => css`
   width: 100vw;
   min-height: 50px;
   display: flex;
@@ -15,15 +15,18 @@ export const headerStyles = (darkModeOn, fontSize, settingsVisible) => css`
   color: white;
   font-size: ${fontSize}px;
 
+  .visible {
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
   #settings-wrap {
-    ${settingsVisible &&
-    css`
-      display: none;
-    `}
-    ${!settingsVisible &&
-    css`
-      display: block;
-    `}
+    background-color: rgba(170, 170, 170, 0.56);
+    padding: 8px;
+    border-radius: 7px;
   }
 
   .dark-mode {
@@ -92,6 +95,7 @@ export const headerStyles = (darkModeOn, fontSize, settingsVisible) => css`
 export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
   .main-section {
     width: 100vw;
+    min-height: 100vh;
     padding-top: 100px;
     padding-bottom: 100px;
     display: flex;
@@ -123,6 +127,10 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     &:hover {
       background-color: #333;
     }
+  }
+
+  .secondary-button {
+    background-color: #c15c00;
   }
 
   h1 {
@@ -160,6 +168,9 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
       color: white;
     `}
   }
+
+  // Product/s page
+
   .product-showroom-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -282,6 +293,20 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     }
   }
 
+  .amount-wrap {
+    display: flex;
+    justify-content: center;
+    border: solid 1px;
+    border-color: #9a9a9a;
+    border-radius: 5px;
+    margin: 0px;
+    & button {
+      background-color: white;
+      border: 0px;
+      margin: 0px;
+    }
+  }
+
   #total-wrap {
     width: 100%;
 
@@ -291,9 +316,12 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     align-items: center;
   }
 
+  // Checkout page
+
   #checkout-container {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     width: 100%;
     max-width: 1000px;
 
@@ -361,6 +389,136 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
         margin-top: 15px;
       }
     }
+
+    #checkout-summary {
+      max-width: 450px;
+      padding: 25px 25px 50px 25px;
+      margin: 100px 100px 0 0;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+    }
+  }
+
+  #login-section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #login-wrap {
+    display: flex;
+    flex-direction: column;
+    & input {
+      margin: 5px 15px 0 0;
+      padding: 8px;
+      border-width: 1px;
+      border-color: #cccccc;
+      background-color: #ffffff;
+      color: #000000;
+      border-style: solid;
+      border-radius: 8px;
+      box-shadow: 0px 0px 5px rgba(149, 149, 149, 0.22);
+      width: 100%;
+    }
+    & button {
+      margin-left: 15px;
+    }
+
+    & .flex-row-wrap {
+      align-items: stretch;
+    }
+
+    & #i-forgot {
+      font-size: 11px;
+      text-decoration: underline;
+      color: #0b8ab3;
+      cursor: pointer;
+      margin: 15px 0 0px 15px;
+    }
+
+    & span {
+      background-color: #0b8ab3;
+      position: absolute;
+      bottom: 50px;
+      color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 50px;
+    }
+
+    & .main-button {
+      background-color: #0b8ab3;
+      color: white;
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-left: 8px;
+      max-width: 100px;
+    }
+  }
+
+  .row-of-inputs-wrap {
+    display: flex;
+    align-items: bottom;
+    margin-bottom: 50px;
+
+    & label {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    & input {
+      border: solid 1px;
+      border-radius: 5px;
+      margin-right: 15px;
+      box-shadow: none;
+    }
+
+    & button {
+      margin-left: 15px;
+    }
+  }
+
+  #product-management-list {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .row-of-inputs-wrap {
+      margin-bottom: 15px;
+    }
+
+    & img {
+      height: 24px;
+      width: 24px;
+    }
+
+    & input {
+      border: 0px;
+
+      &:active {
+        border: 1px;
+      }
+
+      &:focus {
+        border: 1px;
+      }
+    }
+  }
+
+  #product-name-in-list {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .visible {
+    display: block;
   }
 `;
 

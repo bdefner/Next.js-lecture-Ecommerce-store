@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../database/products';
-import { getParsedCookies, setStringifiedCookie } from '../util/cookies';
+import { getParsedCookies } from '../util/cookies';
 import { mainStyles } from '../util/styles';
 
 export default function Cart(props) {
@@ -15,10 +15,24 @@ export default function Cart(props) {
     });
     console.log('totalCosts', totalCosts);
   }, []);
+
+  if (productsInCart === 'undefined') {
+    return (
+      <section className="main-section">
+        <div className="main-container">
+          <h3>Cart is empty</h3>
+          <Link href="/products">
+            <button className="main-button">See our products</button>
+          </Link>
+        </div>
+      </section>
+    );
+  }
   return (
     <div css={mainStyles}>
       <section className="main-section">
         <container id="cart-container">
+          <h1>Shopping cart</h1>
           <div>
             {productsInCart.map((product) => {
               return (
@@ -27,9 +41,11 @@ export default function Cart(props) {
                     <h3>{product.name}</h3>
 
                     <div className="flex-row-center">
-                      <button>-</button>
-                      <p>{product.amount}</p>
-                      <button>+</button>
+                      <div className="amount-wrap">
+                        <button>-</button>
+                        <p>{product.amount}</p>
+                        <button>+</button>
+                      </div>
                     </div>
 
                     <p>€ {product.singlePrice * product.amount}</p>

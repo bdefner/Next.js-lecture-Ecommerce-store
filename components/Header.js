@@ -7,6 +7,7 @@ import { getParsedCookies } from '../util/cookies';
 import { headerStyles } from '../util/styles';
 
 export default function Header(props) {
+  const [settingsDisplay, setSettingsDisplay] = useState('hidden');
   return (
     <header css={headerStyles(props.darkModeOn, props.settingsVisible)}>
       <div id="header-logo-wrap">
@@ -40,7 +41,11 @@ export default function Header(props) {
         </Link>
         <a
           onClick={() => {
-            props.setSettingsVisible(true);
+            if (settingsDisplay === 'hidden') {
+              setSettingsDisplay('visible');
+            } else {
+              setSettingsDisplay('hidden');
+            }
           }}
         >
           <img
@@ -49,7 +54,7 @@ export default function Header(props) {
             className="nav-icon"
           />
         </a>
-        <div id="settings-wrap">
+        <div id="settings-wrap" className={settingsDisplay}>
           <a
             onClick={() => {
               props.setDarkModeOn(false);
@@ -73,7 +78,12 @@ export default function Header(props) {
               className="nav-icon"
             />
           </a>
-        </div>
+        </div>{' '}
+        <Link href="/login">
+          <a>
+            <img src="/login.png" alt="login" className="nav-icon" />
+          </a>
+        </Link>
       </div>
     </header>
   );

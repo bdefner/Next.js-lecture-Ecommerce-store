@@ -1,12 +1,37 @@
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { getParsedCookies } from '../util/cookies';
 
 export default function Checkout(props) {
   const router = useRouter();
+  const [productsInCart, setProductsInCart] = useState([]);
+
+  const [totalCosts, setTotalCosts] = useState(0);
+  useEffect(() => {
+    setProductsInCart(getParsedCookies('cart'));
+
+    console.log('totalCosts', totalCosts);
+  }, []);
+
   return (
     <section className="main-section">
       <div id="checkout-container">
         <div id="checkout-summary" className="column">
-          summary
+          <h3>Summary</h3>
+          {productsInCart.map((product) => {
+            return (
+              <div key={product.name}>
+                <div id="cart-item" data-test-id="cart-product-<product id>">
+                  <span>{product.name}</span>
+
+                  <div className="flex-row-center">
+                    <p>{product.amount}</p>
+                  </div>
+                  <span> € {product.singlePrice * product.amount}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div id="checkout-form" className="column">
           <form
@@ -16,7 +41,7 @@ export default function Checkout(props) {
             }}
           >
             <div className="group-of-inputs">
-              <label htmlFor="fname">Shipping information</label>
+              <h2>Shipping information</h2>
               <div className="row-of-inputs">
                 <div>
                   <br />
