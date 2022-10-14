@@ -21,11 +21,12 @@ export default function Checkout(props) {
           {productsInCart.map((product) => {
             return (
               <div key={product.name}>
-                <div id="cart-item" data-test-id="cart-product-<product id>">
-                  <span>{product.name}</span>
-
-                  <div className="flex-row-center">
-                    <p>{product.amount}</p>
+                <div>
+                  <div>
+                    <p>
+                      {product.amount} * {` `}
+                    </p>
+                    <em> {product.name}</em>
                   </div>
                   <span> € {product.singlePrice * product.amount}</span>
                 </div>

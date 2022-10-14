@@ -8,7 +8,7 @@ export default function Login() {
   const [passwordInput, SetPasswordInput] = useState('');
   const correctPassword = 'password123';
   return (
-    <section css={mainStyles} id="login-section">
+    <section css={mainStyles} className="main-section" id="login-section">
       <div id="login-wrap">
         <form
           onSubmit={(event) => {

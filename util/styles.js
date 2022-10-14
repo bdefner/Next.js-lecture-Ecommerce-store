@@ -93,6 +93,18 @@ export const headerStyles = (darkModeOn, fontSize) => css`
 `;
 
 export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
+  // Dynamic styles
+
+  .hidden {
+    display: none;
+  }
+
+  .visible {
+    display: block;
+  }
+
+  // Global - For all pages
+
   .main-section {
     width: 100vw;
     min-height: 100vh;
@@ -155,6 +167,9 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     justify-content: center;
     align-items: center;
   }
+
+  // Homepage
+
   .home-hero-section {
     min-height: 100vh;
     width: 100vw;
@@ -224,22 +239,29 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     }
 
     & #add-to-cart-wrap {
+      margin-top: 25px;
       display: flex;
       justify-content: flex-start;
+      align-items: center;
 
       & div {
         display: flex;
-        align-items: center;
+        align-items: top;
       }
 
       & button {
-        margin-right: 5px;
+        margin-left: 15px;
       }
 
       & p {
         margin-right: 5px;
       }
     }
+  }
+
+  #product-price {
+    font-size: 32px;
+    font-weight: 400;
   }
 
   .info-text-column {
@@ -296,14 +318,23 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
   .amount-wrap {
     display: flex;
     justify-content: center;
+    align-items: center;
+    max-height: 32px;
     border: solid 1px;
     border-color: #9a9a9a;
     border-radius: 5px;
     margin: 0px;
+
     & button {
       background-color: white;
       border: 0px;
-      margin: 0px;
+      margin: 0px !important;
+      padding: 5px;
+    }
+
+    & p {
+      padding: 5px;
+      margin: 0;
     }
   }
 
@@ -324,6 +355,7 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     align-items: flex-start;
     width: 100%;
     max-width: 1000px;
+    position: relative;
 
     & .column {
       width: 50%;
@@ -396,6 +428,31 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
       margin: 100px 100px 0 0;
       background-color: #f2f2f2;
       border-radius: 8px;
+      position: sticky;
+      top: 300px;
+
+      ${!darkModeOn &&
+      css`
+        background-color: #c15c00;
+        color: white;
+      `}
+
+      & div {
+        width: 100%;
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin: 5px;
+
+        & em {
+          font-weight: 600;
+          font-size: 25px;
+        }
+      }
+
+      & span {
+        width: 100%;
+      }
     }
   }
 
@@ -513,17 +570,13 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     font-weight: 600;
   }
 
-  .hidden {
-    display: none;
+  footer {
+    background-color: #0b8ab3;
+    padding: 100px;
+    display: flex;
+    justify-content: center;
   }
-
-  .visible {
-    display: block;
-  }
-`;
-
-export const footerStyles = (darkModeOn) => css`
-  .footer {
-    background-color: red;
+  #sleeping-cat {
+    max-width: 400px;
   }
 `;

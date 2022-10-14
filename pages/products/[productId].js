@@ -11,6 +11,23 @@ import { mainStyles } from '../../util/styles';
 export default function Product(props) {
   const [amount, setAmount] = useState(1);
 
+  useEffect(() => {
+    const AmountInCookie = getParsedCookies('cart');
+    console.log('AmountInCookie', AmountInCookie);
+
+    // Check cookie for amount of product in cart and set amount to this value
+
+    if (AmountInCookie) {
+      const foundAmount = AmountInCookie.find(
+        (productObject) => productObject.id === props.product.id,
+      );
+
+      if (foundAmount) {
+        setAmount(foundAmount.amount);
+      }
+    }
+  }, []);
+
   // 404 check
 
   if (props.error) {
@@ -28,23 +45,6 @@ export default function Product(props) {
       </div>
     );
   }
-
-  useEffect(() => {
-    const AmountInCookie = getParsedCookies('cart');
-    console.log('AmountInCookie', AmountInCookie);
-
-    // Check cookie for amount of product in cart and set amount to this value
-
-    if (AmountInCookie) {
-      const foundAmount = AmountInCookie.find(
-        (productObject) => productObject.id === props.product.id,
-      );
-
-      if (foundAmount) {
-        setAmount(foundAmount.amount);
-      }
-    }
-  }, []);
 
   return (
     <div>
@@ -75,54 +75,59 @@ export default function Product(props) {
               location.
             </p>
             <span id="product-price" data-test-id="product-price">
-              € {props.product.price}
+              € {props.product.price} ,-
             </span>
-            <div id="add-to-cart-wrap">
+            <div>
               <div>
-                <button
-                  onClick={() => {
-                    amount <= 1 ? setAmount(1) : setAmount(amount - 1);
-                  }}
-                >
-                  -
-                </button>
-                <p>{amount}</p>
-                <button onClick={() => setAmount(amount + 1)}>+</button>
-              </div>
-              <div>
-                <button
-                  onClick={() => {
-                    props.setTotalItems(props.totalItems + amount);
-                    const currentCookieValue = getParsedCookies('cart');
-                    if (!currentCookieValue) {
-                      setStringifiedCookie('cart', [
-                        {
-                          id: props.product.id,
-                          name: props.product.name,
-                          amount: amount,
-                          singlePrice: props.product.price,
-                        },
-                      ]);
-                    } else {
-                      const foundAmountInCookie = currentCookieValue.find(
-                        (productObject) =>
-                          productObject.id === props.product.id,
-                      );
+                <div id="add-to-cart-wrap">
+                  <div>
+                    <div className="amount-wrap">
+                      <button
+                        onClick={() => {
+                          amount <= 1 ? setAmount(1) : setAmount(amount - 1);
+                        }}
+                      >
+                        -
+                      </button>
+                      <p>{amount}</p>
+                      <button onClick={() => setAmount(amount + 1)}>+</button>
+                    </div>
+                  </div>
+                  <button
+                    className="main-button secondary-button"
+                    onClick={() => {
+                      props.setTotalItems(props.totalItems + amount);
+                      const currentCookieValue = getParsedCookies('cart');
+                      if (!currentCookieValue) {
+                        setStringifiedCookie('cart', [
+                          {
+                            id: props.product.id,
+                            name: props.product.name,
+                            amount: amount,
+                            singlePrice: props.product.price,
+                          },
+                        ]);
+                      } else {
+                        const foundAmountInCookie = currentCookieValue.find(
+                          (productObject) =>
+                            productObject.id === props.product.id,
+                        );
 
-                      if (!foundAmountInCookie) {
-                        currentCookieValue.push({
-                          id: props.product.id,
-                          name: props.product.name,
-                          amount: amount,
-                          singlePrice: props.product.price,
-                        });
-                        setStringifiedCookie('cart', currentCookieValue);
+                        if (!foundAmountInCookie) {
+                          currentCookieValue.push({
+                            id: props.product.id,
+                            name: props.product.name,
+                            amount: amount,
+                            singlePrice: props.product.price,
+                          });
+                          setStringifiedCookie('cart', currentCookieValue);
+                        }
                       }
-                    }
-                  }}
-                >
-                  add to cart
-                </button>
+                    }}
+                  >
+                    add to cart
+                  </button>
+                </div>
               </div>
             </div>
           </div>
