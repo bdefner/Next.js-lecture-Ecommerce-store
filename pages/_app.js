@@ -25,10 +25,10 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const productsInCart = getParsedCookies('cart');
-    // const totalItemsInCookies = productsInCart.map((item) => {
-    //   setTotalItems(totalItems++);
-    //   console.log('totalItems', totalItems);
-    // });
+    const totalItemsInCookies = productsInCart.map((item) => {
+      setTotalItems(totalItems++);
+      // console.log('totalItems', totalItems);
+    });
   }, []);
 
   useEffect(() => {
@@ -47,6 +47,7 @@ function MyApp({ Component, pageProps }) {
       darkModeOn={mode}
       setDarkModeOn={setMode}
       totalItems={totalItems}
+      setTotalItems={setTotalItems}
       settingsVisible={settingsVisible}
       setSettingsVisible={setSettingsVisible}
     >

@@ -6,19 +6,18 @@ import { useEffect, useState } from 'react';
 import LottieErrorAnimation from '../../components/LottieErrorAnimation';
 import { getProductById } from '../../database/products';
 import { getParsedCookies, setStringifiedCookie } from '../../util/cookies';
-import { mainStyles } from '../../util/styles';
 
 export default function Product(props) {
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
-    const AmountInCookie = getParsedCookies('cart');
-    console.log('AmountInCookie', AmountInCookie);
+    const amountInCookie = getParsedCookies('cart');
+    console.log('AmountInCookie', amountInCookie);
 
     // Check cookie for amount of product in cart and set amount to this value
 
-    if (AmountInCookie) {
-      const foundAmount = AmountInCookie.find(
+    if (amountInCookie) {
+      const foundAmount = amountInCookie.find(
         (productObject) => productObject.id === props.product.id,
       );
 

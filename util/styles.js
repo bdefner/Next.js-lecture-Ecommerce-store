@@ -15,6 +15,10 @@ export const headerStyles = (darkModeOn, fontSize) => css`
   color: white;
   font-size: ${fontSize}px;
 
+  & a {
+    display: flex;
+  }
+
   .visible {
     display: block;
   }
@@ -65,6 +69,21 @@ export const headerStyles = (darkModeOn, fontSize) => css`
     &:hover {
       filter: invert(0.8);
     }
+  }
+
+  #total-items-count-wrap {
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c15c00;
+    position: relative;
+    font-size: 12px;
+    padding: 3px;
+    left: -5px;
+    bottom: -5px;
   }
 
   #header-nav-wrap {

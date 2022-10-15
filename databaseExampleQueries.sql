@@ -2,7 +2,7 @@
 -- this file doesn't change anything in
 -- the database
 
--- Create animals table
+-- Create products table
 CREATE TABLE products(
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name varchar(30) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE products(
 );
 
 
--- Insert some animals (C in CRUD - Create)
+-- Insert some products (C in CRUD - Create)
 INSERT INTO products
   (name, price)
 VALUES
@@ -19,5 +19,5 @@ VALUES
   ('cool', 999),
   ('sunny', 9990);
 
--- Read some animals (R in CRUD - Read)
+-- Read some products (R in CRUD - Read)
 SELECT * FROM products;

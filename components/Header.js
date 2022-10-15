@@ -36,7 +36,7 @@ export default function Header(props) {
         <Link href="/cart">
           <a>
             <img src="/cart.png" alt="shopping cart" className="nav-icon" />
-            {props.totalItems}
+            <div id="total-items-count-wrap">{props.totalItems}</div>
           </a>
         </Link>
         <a

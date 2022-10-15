@@ -14,6 +14,8 @@ export default function Layout(props) {
         setDarkModeOn={props.setDarkModeOn}
         settingsVisible={props.settingsVisible}
         setSettingsVisible={props.setSettingsVisible}
+        totalItems={props.totalItems}
+        setTotalItems={props.setTotalItems}
       />
       <main css={mainStyles(props.darkModeOn, props.fontSize)}>
         {props.children}

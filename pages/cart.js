@@ -8,12 +8,26 @@ export default function Cart(props) {
   const [productsInCart, setProductsInCart] = useState([]);
 
   const [totalCosts, setTotalCosts] = useState(0);
+  async function fetchDataFromCookies() {
+    setProductsInCart(await getParsedCookies('cart'));
+  }
+
   useEffect(() => {
-    setProductsInCart(getParsedCookies('cart'));
-    productsInCart.map((product) => {
-      setTotalCosts(totalCosts + product.singlePrice * product.amount);
+    fetchDataFromCookies().catch((error) => {
+      console.log(error);
     });
-    console.log('totalCosts', totalCosts);
+
+    for (const product of productsInCart) {
+      // setTotalCosts(totalCosts + product.singlePrice * product.amount);
+      console.log('product.price: ', product.price);
+    }
+
+    // productsInCart.map((product) => {
+    //   console.log('productsInCart: ', productsInCart);
+    //   console.log('totalCosts:', totalCosts);
+    //   setTotalCosts(totalCosts + product.singlePrice * product.amount);
+    // });
+    console.log('productsInCart: ', productsInCart);
   }, []);
 
   if (productsInCart === 'undefined') {
@@ -28,6 +42,7 @@ export default function Cart(props) {
       </section>
     );
   }
+
   return (
     <div css={mainStyles}>
       <section className="main-section">
@@ -48,15 +63,15 @@ export default function Cart(props) {
                       </div>
                     </div>
 
-                    <p>€ {product.singlePrice * product.amount}</p>
-                    <span>Total: € {totalCosts}</span>
+                    <p>€ {product.singlePrice}</p>
+                    <span>Total: € {product.singlePrice * product.amount}</span>
                   </div>
                   <hr />
                 </div>
               );
             })}
             <div id="total-wrap">
-              <span>Total: € </span>
+              <span>Total: € {totalCosts} </span>
 
               <Link href="/checkout">
                 <button className="main-button">checkout</button>
