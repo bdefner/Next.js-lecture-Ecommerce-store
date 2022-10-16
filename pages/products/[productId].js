@@ -12,7 +12,6 @@ export default function Product(props) {
 
   useEffect(() => {
     const amountInCookie = getParsedCookies('cart');
-    console.log('AmountInCookie', amountInCookie);
 
     // Check cookie for amount of product in cart and set amount to this value
 
@@ -103,7 +102,7 @@ export default function Product(props) {
                             id: props.product.id,
                             name: props.product.name,
                             amount: amount,
-                            singlePrice: props.product.price,
+                            // singlePrice: props.product.price,
                           },
                         ]);
                       } else {
@@ -117,7 +116,7 @@ export default function Product(props) {
                             id: props.product.id,
                             name: props.product.name,
                             amount: amount,
-                            singlePrice: props.product.price,
+                            // singlePrice: props.product.price,
                           });
                           setStringifiedCookie('cart', currentCookieValue);
                         }

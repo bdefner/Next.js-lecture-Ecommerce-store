@@ -5,32 +5,26 @@ import { getParsedCookies } from '../util/cookies';
 import { mainStyles } from '../util/styles';
 
 export default function Cart(props) {
-  const [productsInCart, setProductsInCart] = useState([]);
+  console.log(
+    'typeof props.products[0].price: ',
+    typeof props.products[0].price,
+  );
 
   const [totalCosts, setTotalCosts] = useState(0);
-  async function fetchDataFromCookies() {
-    setProductsInCart(await getParsedCookies('cart'));
-  }
 
   useEffect(() => {
-    fetchDataFromCookies().catch((error) => {
-      console.log(error);
-    });
-
-    for (const product of productsInCart) {
-      // setTotalCosts(totalCosts + product.singlePrice * product.amount);
-      console.log('product.price: ', product.price);
-    }
-
-    // productsInCart.map((product) => {
-    //   console.log('productsInCart: ', productsInCart);
-    //   console.log('totalCosts:', totalCosts);
-    //   setTotalCosts(totalCosts + product.singlePrice * product.amount);
-    // });
-    console.log('productsInCart: ', productsInCart);
+    // for (const product of productsInCart) {
+    //   // setTotalCosts(totalCosts + product.singlePrice * product.amount);
+    //   console.log('product.price: ', product.price);
+    // }
+    // // productsInCart.map((product) => {
+    // //   console.log('productsInCart: ', productsInCart);
+    // //   console.log('totalCosts:', totalCosts);
+    // //   setTotalCosts(totalCosts + product.singlePrice * product.amount);
+    // // });
   }, []);
 
-  if (productsInCart === 'undefined') {
+  if (props.products === 'undefined') {
     return (
       <section className="main-section">
         <div className="main-container">
@@ -49,7 +43,7 @@ export default function Cart(props) {
         <container id="cart-container">
           <h1>Shopping cart</h1>
           <div>
-            {productsInCart.map((product) => {
+            {props.products.map((product) => {
               return (
                 <div key={product.name}>
                   <div id="cart-item" data-test-id="cart-product-<product id>">
@@ -63,8 +57,8 @@ export default function Cart(props) {
                       </div>
                     </div>
 
-                    <p>€ {product.singlePrice}</p>
-                    <span>Total: € {product.singlePrice * product.amount}</span>
+                    <p>€ {product.price}</p>
+                    <span>Total: € {product.price * product.amount}</span>
                   </div>
                   <hr />
                 </div>
@@ -88,11 +82,35 @@ export default function Cart(props) {
 //   return <></>;
 // }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const products = await getProducts();
+  const cartFromCookies = [];
+
+  if (context.req.cookies.cart) {
+    cartFromCookies.push(JSON.parse(context.req.cookies.cart));
+  }
+
+  const itemsFromCookies = cartFromCookies[0];
+
+  const productsForCart = itemsFromCookies
+    ? itemsFromCookies.map((item) => {
+        return {
+          name: item.name,
+          amount: item.amount,
+          price: products.find((product) => {
+            return product.id === item.id;
+          })?.price,
+        };
+      })
+    : 'undefined';
+
+  // console.log('itemsFromCookies: ', itemsFromCookies);
+  // console.log('itemsFromCookies[0].name: ', itemsFromCookies[0].name);
+  // console.log('productsForCart: ', productsForCart);
+
   return {
     props: {
-      products: products,
+      products: productsForCart,
     },
   };
 }

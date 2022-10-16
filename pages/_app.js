@@ -22,14 +22,32 @@ function MyApp({ Component, pageProps }) {
   const [totalItems, setTotalItems] = useState(0);
   const [fontSize, setFontSize] = useState(15);
   const [settingsVisible, setSettingsVisible] = useState(true);
+  // const [changedValue, setChangedValue] = useState(true);
+
+  function getItemQuantityFromCookie() {
+    const itemsInCookie = getParsedCookies('cart');
+    if (!itemsInCookie) {
+      return;
+    } else {
+      let amount = 0;
+      itemsInCookie.map((item) => (amount += item.amount));
+      setTotalItems(amount);
+      return;
+    }
+  }
 
   useEffect(() => {
-    const productsInCart = getParsedCookies('cart');
-    const totalItemsInCookies = productsInCart.map((item) => {
-      setTotalItems(totalItems++);
-      // console.log('totalItems', totalItems);
-    });
+    getItemQuantityFromCookie();
   }, []);
+
+  // useEffect(() => {
+  //   // const productsInCart = getParsedCookies('cart');
+  //   // const totalItemsInCookies = productsInCart.map((item) => {
+  //   //   setTotalItems(totalItems++);
+  //     // console.log('totalItems', totalItems);
+  //     getItemQuantityFromCookie();
+  //   });
+  // }, [changedValue]);
 
   useEffect(() => {
     window
