@@ -1,9 +1,6 @@
 import 'animate.css';
-import { css } from '@emotion/react';
-// import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { getParsedCookies } from '../util/cookies';
+import { useState } from 'react';
 import { headerStyles } from '../util/styles';
 
 export default function Header(props) {
@@ -39,7 +36,7 @@ export default function Header(props) {
             <div id="total-items-count-wrap">{props.totalItems}</div>
           </a>
         </Link>
-        <a
+        <button
           onClick={() => {
             if (settingsDisplay === 'hidden') {
               setSettingsDisplay('visible');
@@ -53,9 +50,9 @@ export default function Header(props) {
             alt="moon for dark mode on"
             className="nav-icon"
           />
-        </a>
+        </button>
         <div id="settings-wrap" className={settingsDisplay}>
-          <a
+          <button
             onClick={() => {
               props.setDarkModeOn(false);
             }}
@@ -65,9 +62,9 @@ export default function Header(props) {
               alt="moon for dark mode on"
               className="nav-icon"
             />
-          </a>
+          </button>
 
-          <a
+          <button
             onClick={() => {
               props.setDarkModeOn(true);
             }}
@@ -77,7 +74,7 @@ export default function Header(props) {
               alt="sun for day mode on"
               className="nav-icon"
             />
-          </a>
+          </button>
         </div>{' '}
         <Link href="/login">
           <a>

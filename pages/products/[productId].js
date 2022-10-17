@@ -1,6 +1,4 @@
-import Cookies from 'js-cookie';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import LottieErrorAnimation from '../../components/LottieErrorAnimation';
@@ -24,7 +22,7 @@ export default function Product(props) {
         setAmount(foundAmount.amount);
       }
     }
-  }, []);
+  }, [props.product.id]);
 
   // 404 check
 
@@ -161,7 +159,18 @@ export default function Product(props) {
 
 export async function getServerSideProps(context) {
   // Retrieve the product id from the URL
+
   const productId = parseInt(context.query.productId);
+
+  if (!productId) {
+    context.res.statusCode = 404;
+    return {
+      props: {
+        error: 'Product not found',
+      },
+    };
+  }
+
   const foundProduct = await getProductById(productId);
 
   if (typeof foundProduct === 'undefined') {

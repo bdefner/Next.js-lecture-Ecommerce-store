@@ -5,7 +5,7 @@ import { mainStyles } from '../util/styles';
 export default function Login() {
   const router = useRouter();
   const [displayPassword, setDisplayPassword] = useState('hidden');
-  const [passwordInput, SetPasswordInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
   const correctPassword = 'password123';
   return (
     <section css={mainStyles} className="main-section" id="login-section">
@@ -30,21 +30,21 @@ export default function Login() {
                 type="password"
                 placeholder="password"
                 onChange={(event) =>
-                  SetPasswordInput(event.currentTarget.value)
+                  setPasswordInput(event.currentTarget.value)
                 }
               />
             </div>
             <input type="submit" className="main-button" value="Login" />
           </div>
         </form>
-        <p
+        <button
           id="i-forgot"
           onClick={() => {
             setDisplayPassword('block');
           }}
         >
           But, I don't know the password
-        </p>
+        </button>
         <span className={displayPassword}>
           Psst... the password is: password123
         </span>

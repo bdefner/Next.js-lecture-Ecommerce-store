@@ -21,7 +21,7 @@ export default class LottieControl extends React.Component {
     return (
       <div>
         <Lottie
-          height={'100%'}
+          height="100%"
           width="700"
           isStopped={this.state.isStopped}
           isPaused={this.state.isPaused}

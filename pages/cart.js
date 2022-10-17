@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
 import { getProducts } from '../database/products';
 import { calculateTotalCosts } from '../util/CalculateTotalCosts';
 import { mainStyles } from '../util/styles';

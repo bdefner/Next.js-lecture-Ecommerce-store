@@ -11,7 +11,8 @@ export default function Checkout(props) {
     setProductsInCart(getParsedCookies('cart'));
   }, []);
 
-  console.log('props: ', props);
+  console.log('productsInCart: ', productsInCart);
+
   return (
     <section className="main-section">
       <div id="checkout-container">
@@ -90,7 +91,6 @@ export default function Checkout(props) {
                 <div>
                   <input
                     placeholder="Postal / Zip"
-                    type="text"
                     // pattern="[0-9]"
                     data-test-id="checkout-postal-code"
                     required

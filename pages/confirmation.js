@@ -1,6 +1,6 @@
 import LottieAnimation from '../public/LottieAnimation';
 
-export default function Confirmation(props) {
+export default function Confirmation() {
   return (
     <section className="main-section">
       <div className="animate__animated animate__zoomIn">

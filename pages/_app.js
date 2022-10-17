@@ -2,7 +2,6 @@ import { css, Global } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { getParsedCookies } from '../util/cookies';
-import { mainStyles } from '../util/styles';
 
 const globalStyles = css`
   *,
