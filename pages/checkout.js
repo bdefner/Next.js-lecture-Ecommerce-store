@@ -1,24 +1,23 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { getProducts } from '../database/products';
 import { getParsedCookies } from '../util/cookies';
 
 export default function Checkout(props) {
   const router = useRouter();
   const [productsInCart, setProductsInCart] = useState([]);
 
-  const [totalCosts, setTotalCosts] = useState(0);
   useEffect(() => {
     setProductsInCart(getParsedCookies('cart'));
-
-    console.log('totalCosts', totalCosts);
   }, []);
 
+  console.log('props: ', props);
   return (
     <section className="main-section">
       <div id="checkout-container">
         <div id="checkout-summary" className="column">
           <h3>Summary</h3>
-          {productsInCart.map((product) => {
+          {props.products.map((product) => {
             return (
               <div key={product.name}>
                 <div>
@@ -28,11 +27,16 @@ export default function Checkout(props) {
                     </p>
                     <em> {product.name}</em>
                   </div>
-                  <span> € {product.singlePrice * product.amount}</span>
+                  <p id="price"> € {product.price * product.amount}</p>
                 </div>
               </div>
             );
           })}
+          <hr />
+          <div id="total-wrap">
+            <p>no tax, free shipping 🥳</p>
+            <span>In total, just: € {props.totalCosts}</span>
+          </div>
         </div>
         <div id="checkout-form" className="column">
           <form
@@ -63,7 +67,12 @@ export default function Checkout(props) {
                 </div>
               </div>
               <div>
-                <input type="email" placeholder="Email" required />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  data-test-id="checkout-email"
+                />
               </div>
             </div>
             <div className="group-of-inputs">
@@ -131,4 +140,44 @@ export default function Checkout(props) {
       </div>
     </section>
   );
+}
+
+export async function getServerSideProps(context) {
+  const products = await getProducts();
+  const cartFromCookies = [];
+  let totalCosts = 0;
+
+  if (context.req.cookies.cart) {
+    cartFromCookies.push(JSON.parse(context.req.cookies.cart));
+  }
+
+  const itemsFromCookies = cartFromCookies[0];
+
+  // Create an Array of objects to return to the frontend with name, amount and price of the products in the cart
+  const productsForCart = itemsFromCookies
+    ? itemsFromCookies.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+          amount: item.amount,
+          price: products.find((product) => {
+            return product.id === item.id;
+          })?.price,
+        };
+      })
+    : 'undefined';
+
+  // Calculate total Costs in the backend, so it can not be manipulated in the client
+
+  if (productsForCart !== 'undefined') {
+    productsForCart.forEach((element) => {
+      totalCosts += element.price * element.amount;
+    });
+  }
+  return {
+    props: {
+      products: productsForCart,
+      totalCosts: totalCosts,
+    },
+  };
 }

@@ -303,6 +303,8 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
       }
     }
   }
+
+  // Cart Page
   #cart-container {
     display: flex;
     flex-direction: column;
@@ -315,7 +317,7 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     justify-content: space-around;
 
     & h3 {
-      margin-right: 15px;
+      margin: 20px;
       font-size: 25px;
       width: 120px;
     }
@@ -332,6 +334,14 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
     & span {
       font-weight: bold;
     }
+
+    & #product-image-in-cart {
+      border-radius: 8px;
+    }
+  }
+
+  #product-image-in-cart {
+    margin-right: 25px;
   }
 
   .amount-wrap {
@@ -469,8 +479,18 @@ export const mainStyles = (darkModeOn, fontSize, itemCounter) => css`
         }
       }
 
-      & span {
+      & #price {
         width: 100%;
+        text-align: right;
+      }
+      & #total-wrap {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        & span {
+          font-weight: 600;
+        }
       }
     }
   }

@@ -34,7 +34,7 @@ export default function Header(props) {
           <a>shop</a>
         </Link>
         <Link href="/cart">
-          <a>
+          <a data-test-id="go-to-cart">
             <img src="/cart.png" alt="shopping cart" className="nav-icon" />
             <div id="total-items-count-wrap">{props.totalItems}</div>
           </a>

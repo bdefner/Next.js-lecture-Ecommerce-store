@@ -1,34 +1,16 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../database/products';
-import { getParsedCookies } from '../util/cookies';
+import { calculateTotalCosts } from '../util/CalculateTotalCosts';
 import { mainStyles } from '../util/styles';
 
 export default function Cart(props) {
-  console.log(
-    'typeof props.products[0].price: ',
-    typeof props.products[0].price,
-  );
-
-  const [totalCosts, setTotalCosts] = useState(0);
-
-  useEffect(() => {
-    // for (const product of productsInCart) {
-    //   // setTotalCosts(totalCosts + product.singlePrice * product.amount);
-    //   console.log('product.price: ', product.price);
-    // }
-    // // productsInCart.map((product) => {
-    // //   console.log('productsInCart: ', productsInCart);
-    // //   console.log('totalCosts:', totalCosts);
-    // //   setTotalCosts(totalCosts + product.singlePrice * product.amount);
-    // // });
-  }, []);
-
   if (props.products === 'undefined') {
     return (
       <section className="main-section">
         <div className="main-container">
-          <h3>Cart is empty</h3>
+          <h3>You cart is empty 🧐 </h3>
           <Link href="/products">
             <button className="main-button">See our products</button>
           </Link>
@@ -47,7 +29,15 @@ export default function Cart(props) {
               return (
                 <div key={product.name}>
                   <div id="cart-item" data-test-id="cart-product-<product id>">
+                    <Image
+                      src={`/${product.id}-${product.name}.jpg`}
+                      alt="Product"
+                      id="product-image-in-cart"
+                      width="50"
+                      height="50"
+                    />
                     <h3>{product.name}</h3>
+                    <p>€ {product.price}</p>
 
                     <div className="flex-row-center">
                       <div className="amount-wrap">
@@ -57,7 +47,6 @@ export default function Cart(props) {
                       </div>
                     </div>
 
-                    <p>€ {product.price}</p>
                     <span>Total: € {product.price * product.amount}</span>
                   </div>
                   <hr />
@@ -65,7 +54,7 @@ export default function Cart(props) {
               );
             })}
             <div id="total-wrap">
-              <span>Total: € {totalCosts} </span>
+              <span>Total: € {props.totalCosts}</span>
 
               <Link href="/checkout">
                 <button className="main-button">checkout</button>
@@ -78,10 +67,6 @@ export default function Cart(props) {
   );
 }
 
-// export default function Cart() {
-//   return <></>;
-// }
-
 export async function getServerSideProps(context) {
   const products = await getProducts();
   const cartFromCookies = [];
@@ -92,9 +77,11 @@ export async function getServerSideProps(context) {
 
   const itemsFromCookies = cartFromCookies[0];
 
+  // Create an Array of objects to return to the frontend with name, amount and price of the products in the cart
   const productsForCart = itemsFromCookies
     ? itemsFromCookies.map((item) => {
         return {
+          id: item.id,
           name: item.name,
           amount: item.amount,
           price: products.find((product) => {
@@ -104,13 +91,19 @@ export async function getServerSideProps(context) {
       })
     : 'undefined';
 
-  // console.log('itemsFromCookies: ', itemsFromCookies);
-  // console.log('itemsFromCookies[0].name: ', itemsFromCookies[0].name);
-  // console.log('productsForCart: ', productsForCart);
+  // if (productsForCart !== 'undefined') {
+  //   productsForCart.forEach((element) => {
+  //     totalCosts += element.price * element.amount;
+  //   });
+  // }
 
   return {
     props: {
       products: productsForCart,
+
+      // Calculate total costs in the backend, so it can not be manipulated in the client
+
+      totalCosts: calculateTotalCosts(productsForCart),
     },
   };
 }

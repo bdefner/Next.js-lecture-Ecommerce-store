@@ -15,7 +15,7 @@ export default function Home(props) {
       <section css={mainStyles(props.darkModeOn)} className="home-hero-section">
         <div className="animate__animated animate__zoomIn">
           <h1>
-            vegan hats
+            vegan hats&nbsp;
             <br />
             <span>for cats</span>
           </h1>
